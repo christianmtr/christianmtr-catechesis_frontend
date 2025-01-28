@@ -2,23 +2,34 @@
 import React from "react";
 import { Layout, Menu, Avatar, Dropdown } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
+import useStore from "../store/store";
 
 const { Header, Content } = Layout;
 
 const AppLayout = () => {
   const navigate = useNavigate();
+  const { user, logout } = useStore();
 
   const handleMenuClick = ({ key }) => {
     if (key === "logout") {
       // Aquí puedes manejar la lógica de cierre de sesión
-      localStorage.removeItem("token");
+      logout();
       navigate("/login");
     } else {
       navigate(`/${key}`);
     }
   };
 
-  const menu = (
+  let optionsMenu = [
+    { label: "Inicio", key: "" },
+    { label: "Inscripciones", key: "inscripciones" },
+  ];
+  if (user?.user_type == "A") {
+    optionsMenu.push({ label: "Catequistas", key: "catequistas" });
+    optionsMenu.push({ label: "Aulas", key: "aulas" });
+  }
+
+  const userMenu = (
     <Menu
       items={[
         { label: "Ver Perfil", key: "profile" },
@@ -60,19 +71,18 @@ const AppLayout = () => {
             mode="horizontal"
             defaultSelectedKeys={["home"]}
             style={{ border: "none" }}
-            items={[
-              { label: "Home", key: "" },
-              { label: "Lista de Elementos", key: "list" },
-            ]}
+            items={optionsMenu}
             onClick={(e) => navigate(`/${e.key}`)}
           />
         </div>
 
         {/* Sección derecha: usuario */}
-        <Dropdown overlay={menu} trigger={["click"]}>
+        <Dropdown overlay={userMenu} trigger={["click"]}>
           <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
             <Avatar src="/default-avatar.png" size="large" />
-            <span style={{ marginLeft: "10px", fontWeight: "500" }}>Usuario</span>
+            <span style={{ marginLeft: "10px", fontWeight: "500" }}>
+              {user?.first_name || "Usuario"}
+            </span>
           </div>
         </Dropdown>
       </Header>

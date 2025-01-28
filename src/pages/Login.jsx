@@ -1,12 +1,15 @@
 // src/pages/Login.jsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import useStore from "../store/store";
+import apiService from "../api/apiService";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { token, setUser, setToken } = useStore();
+  const [loading, setLoading] = useState(false);
+  const { token, setUser, setToken, setRefresh } = useStore();
 
   // Redirigir al usuario si ya está autenticado
   useEffect(() => {
@@ -17,48 +20,56 @@ const Login = () => {
 
   // Simular una llamada de inicio de sesión a una API
   const handleLogin = async (values) => {
+    setLoading(true);
+    message.destroy();
     try {
-      // Simular respuesta de API
-      const fakeApiResponse = {
-        user: { id: 1, name: "Usuario Demo", email: "demo@example.com" },
-        token: "fake-jwt-token",
-      };
+      const data = await apiService.login(values);
 
-      // Guardar los datos del usuario y el token en el store
-      setUser(fakeApiResponse.user);
-      setToken(fakeApiResponse.token);
+      if (!data.user.is_active) {
+        message("This user is not active.", 0);
+        return null;
+      }
 
-      // Guardar el token en localStorage
-      localStorage.setItem("token", fakeApiResponse.token);
+      // Guardar el token y el usuario en el global store
+      setToken(data.access);
+      setRefresh(data.refresh);
+      setUser(data.user);
 
       // Redirigir al home
-      message.success("Inicio de sesión exitoso");
+      message.success("Inicio de sesión exitoso", 30);
       navigate("/");
-    } catch (error) {
-      message.error("Error al iniciar sesión");
+    } catch (err) {
+      message.error("Error al iniciar sesión", err, 30);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div style={{ maxWidth: "400px", margin: "50px auto", padding: "20px", border: "1px solid #ddd", borderRadius: "8px", background: "#fff" }}>
       <h2 style={{ textAlign: "center" }}>Iniciar Sesión</h2>
-      <Form onFinish={handleLogin} layout="vertical">
+      <Form onFinish={handleLogin} layout="vertical" initialValues={{ remember: true }}>
         <Form.Item
-          label="Usuario"
-          name="username"
-          rules={[{ required: true, message: "Por favor ingrese su usuario" }]}
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: "Por favor ingrese su email" }]}
         >
-          <Input />
+          <Input prefix={<UserOutlined />}
+              placeholder="Ingresa tu email"
+              autoComplete="email"/>
         </Form.Item>
         <Form.Item
           label="Contraseña"
           name="password"
           rules={[{ required: true, message: "Por favor ingrese su contraseña" }]}
         >
-          <Input.Password />
+          <Input.Password
+          prefix={<LockOutlined />}
+              placeholder="Ingresa tu contraseña"
+              autoComplete="current-password" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" block>
+          <Button type="primary" htmlType="submit" block loading={loading}>
             Iniciar Sesión
           </Button>
         </Form.Item>
