@@ -1,9 +1,33 @@
 // src/components/DynamicFormModal.jsx
 import React from "react";
-import { Modal, Form, Input, Button } from "antd";
+import { Modal, Form, Input, Button, Select, DatePicker } from "antd";
 
 const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
   const [form] = Form.useForm();
+
+  const renderField = (field) => {
+    switch (field.inputType) {
+      case "select":
+        return <Select options={field.options.map(item => {
+          return {value: item.id, label: `${item.type}-${item.year}`}
+        })} />;
+      case "date":
+        return (
+          <DatePicker
+            mode="date"
+            format="YYYY/MM/DD"
+            style={{ width: "100%" }}
+          />
+        );
+      default:
+        return (
+          <Input
+            placeholder={field.placeholder || ""}
+            type={field.inputType || "text"} // Usa "text" como valor predeterminado
+          />
+        );
+    }
+  };
 
   const handleOk = async () => {
     try {
@@ -18,7 +42,7 @@ const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
   return (
     <Modal
       title="Agregar/Editar Elemento"
-      visible={isVisible}
+      open={isVisible}
       onOk={handleOk}
       onCancel={() => {
         form.resetFields();
@@ -40,8 +64,10 @@ const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
             name={field.name}
             label={field.label}
             rules={field.rules || []}
+            hidden={field.inputType == "hidden"}
+            initialValue={field.initialValue}
           >
-            <Input placeholder={field.placeholder || ""} />
+            {renderField(field)}
           </Form.Item>
         ))}
       </Form>

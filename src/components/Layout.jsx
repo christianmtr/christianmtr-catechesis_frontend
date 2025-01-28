@@ -1,14 +1,28 @@
 // src/layout/Layout.jsx
-import React from "react";
+import React, {useEffect} from "react";
 import { Layout, Menu, Avatar, Dropdown } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
 import useStore from "../store/store";
+import apiService from "../api/apiService";
 
 const { Header, Content } = Layout;
 
 const AppLayout = () => {
   const navigate = useNavigate();
-  const { user, logout } = useStore();
+  const { user, logout, setInscriptions } = useStore();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const inscriptionsList = await apiService.getInscriptions();
+        setInscriptions(inscriptionsList); // Establecer los datos iniciales
+      } catch (error) {
+        console.error("Error al cargar la lista de inscripciones:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleMenuClick = ({ key }) => {
     if (key === "logout") {
@@ -77,7 +91,7 @@ const AppLayout = () => {
         </div>
 
         {/* Sección derecha: usuario */}
-        <Dropdown overlay={userMenu} trigger={["click"]}>
+        <Dropdown menu={userMenu} trigger={["click"]}>
           <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
             <Avatar src="/default-avatar.png" size="large" />
             <span style={{ marginLeft: "10px", fontWeight: "500" }}>
@@ -104,7 +118,7 @@ const AppLayout = () => {
             borderRadius: "8px",
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
             width: "100%",
-            maxWidth: "800px", // Limita el ancho de la caja centrada
+            maxWidth: "1000px", // Limita el ancho de la caja centrada
           }}
         >
           <Outlet />

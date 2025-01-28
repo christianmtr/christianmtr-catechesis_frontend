@@ -11,7 +11,6 @@ const apiClient = axios.create({
 // Interceptor para agregar el token de autorización a las solicitudes
 apiClient.interceptors.request.use(
   (config) => {
-    console.log(config);
     const token = localStorage.getItem("token"); // Obtener el token del localStorage
     if (token) {
       config.headers.Authorization = `JWT ${token}`;

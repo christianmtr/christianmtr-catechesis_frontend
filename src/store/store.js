@@ -6,6 +6,7 @@ const useStore = create(
     user: null,
     token: null,
     refresh: null,
+    inscriptions: {},
     setUser: (user) => set({ user }),
     setToken: (token) => {
       set({ token });
@@ -19,6 +20,9 @@ const useStore = create(
       set({ user: null, token: null, refresh: null });
       localStorage.removeItem("token");
       localStorage.removeItem("refresh");
+    },
+    setInscriptions: (inscriptions) => {
+      set({ inscriptions });
     },
   }))
 );
