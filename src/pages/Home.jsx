@@ -4,8 +4,8 @@ import React from "react";
 const Home = () => {
   return (
     <div>
-      <h1>Bienvenido a la página principal</h1>
-      <p>Este es el contenido del Home.</p>
+      <h1>Catequesis - Santa Maria Catedral.</h1>
+      <p>Bienvenido a la página principal</p>
     </div>
   );
 };
