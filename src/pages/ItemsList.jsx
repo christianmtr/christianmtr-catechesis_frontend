@@ -4,11 +4,15 @@ import DynamicTable from "../components/DynamicTable";
 import DynamicFormModal from "../components/DynamicFormModal";
 import apiService from "../api/apiService";
 import useStore from "../store/store";
+import getFormFields from "../utils/formFields";
+import getColums from "../utils/listColums";
+import { useLocation } from 'react-router-dom'
 
 const ItemList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState([]); // Comienza con un array vacío
   const { inscriptions } = useStore();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,132 +28,10 @@ const ItemList = () => {
   }, []);
 
   // Configuración de las columnas de la tabla
-  const columns = [
-    {
-      title: "Nombre",
-      dataIndex: "first_name",
-      key: "first_name",
-    },
-    {
-      title: "Apellido",
-      dataIndex: "last_name",
-      key: "last_name",
-    },
-    {
-      title: "DNI",
-      dataIndex: "national_id",
-      key: "national_id",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-    },
-    {
-      title: "Teléfono",
-      dataIndex: "phone_number",
-      key: "phone_number",
-    },{
-      title: "Fecha de nacimiento",
-      dataIndex: "birthday",
-      key: "birthday",
-    },
-    {
-      title: "Bautizo",
-      dataIndex: "baptism",
-      key: "baptism",
-    },
-    {
-      title: "Comunión",
-      dataIndex: "communion",
-      key: "communion",
-    },
-  ];
+  const columns = getColums(location.pathname);
 
   // Configuración de los campos del formulario
-  const formFields = [
-    {
-      name: "inscription",
-      label: "Inscripción",
-      rules: [{ required: true, message: "El Inscripción es obligatorio" }],
-      placeholder: "Inscripción",
-      inputType: "select",
-      options: inscriptions,
-      initialValue: "",
-    },
-    {
-      name: "first_name",
-      label: "Nombres",
-      rules: [{ required: true, message: "El nombre es obligatorio" }],
-      placeholder: "Nombre del joven",
-      inputType: "text",
-      initialValue: "",
-    },
-    {
-      name: "last_name",
-      label: "Apellidos",
-      rules: [{ required: true, message: "El apellido es obligatorio" }],
-      placeholder: "Apellidos del joven",
-      inputType: "text",
-      initialValue: "",
-    },
-    {
-      name: "national_id",
-      label: "DNI",
-      rules: [{ required: true, message: "El número de DNI es obligatorio", min: 8, max: 8 }],
-      placeholder: "Número de DNI",
-      inputType: "number",
-      initialValue: "",
-    },
-    {
-      name: "email",
-      label: "Email",
-      rules: [{ required: true, message: "El email es obligatorio" }],
-      placeholder: "mi_nombre@example.com",
-      inputType: "email",
-      initialValue: "",
-    },
-    {
-      name: "phone_number",
-      label: "Teléfono",
-      rules: [{ required: true, message: "El número de teléfono es obligatorio", min: 9, max: 9 }],
-      placeholder: "999888777",
-      inputType: "tel",
-      initialValue: "",
-    },
-    {
-      name: "birthday",
-      label: "Cumpleaños",
-      rules: [{ required: true, message: "La fecha de cumpleaños es obligatoria" }],
-      placeholder: "",
-      inputType: "date",
-      initialValue: "",
-    },
-    {
-      name: "baptism",
-      label: "Bautizo",
-      rules: [{ required: true, message: "El lugar de bautizo es obligatorio" }],
-      placeholder: "Lugar de bautizo",
-      inputType: "text",
-      initialValue: "",
-    },
-    {
-      name: "communion",
-      label: "Comunión",
-      rules: [{ required: true, message: "El lugar de primera comunión es obligatorio" }],
-      placeholder: "Lugar de tu primera comunión",
-      inputType: "text",
-      initialValue: "",
-    },
-    {
-      name: "user_type",
-      label: "Tipo de usuario",
-      rules: [{ required: true, message: "El tipo de usuario es obligatorio" }],
-      placeholder: "Tipo de usuario",
-      inputType: "hidden",
-      initialValue: "CH",
-    },
-  ];
+  const formFields = getFormFields(location.pathname, inscriptions);
 
   // Manejo del envío del formulario
   const handleFormSubmit = async (values) => {
