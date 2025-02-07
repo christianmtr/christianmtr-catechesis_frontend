@@ -7,18 +7,20 @@ import useStore from "../store/store";
 import getFormFields from "../utils/formFields";
 import getColums from "../utils/listColums";
 import { useLocation } from 'react-router-dom'
+import getDataForCurrentPath from "../utils/getDataForCurrentPath";
 
 const ItemList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState([]); // Comienza con un array vacío
   const { inscriptions } = useStore();
   const location = useLocation();
+  const currentPathname = location.pathname;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const childList = await apiService.getChildList();
-        setData(childList); // Establecer los datos iniciales
+        const dataList = await getDataForCurrentPath(currentPathname);
+        setData(dataList); // Establecer los datos iniciales
       } catch (error) {
         console.error("Error al cargar la lista de elementos:", error);
       }
@@ -28,10 +30,10 @@ const ItemList = () => {
   }, []);
 
   // Configuración de las columnas de la tabla
-  const columns = getColums(location.pathname);
+  const columns = getColums(currentPathname);
 
   // Configuración de los campos del formulario
-  const formFields = getFormFields(location.pathname, inscriptions);
+  const formFields = getFormFields(currentPathname, inscriptions);
 
   // Manejo del envío del formulario
   const handleFormSubmit = async (values) => {
