@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Crear instancia de Axios
 const apiClient = axios.create({
-  baseURL: "https://catechesis-backend.onrender.com/api/",
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/`,
   headers: {
     "Content-Type": "application/json",
   },
