@@ -2,6 +2,8 @@
 import React from "react";
 import { Modal, Form, Input, Button, Select, DatePicker } from "antd";
 
+const { TextArea } = Input;
+
 const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
   const [form] = Form.useForm();
 
@@ -9,7 +11,7 @@ const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
     switch (field.inputType) {
       case "select":
         return <Select options={field.options.map(item => {
-          return {value: item.id, label: `${item.type}-${item.year}`}
+          return {value: item.id, label: `${item.verbose_type}-${item.year}`}
         })} />;
       case "date":
         return (
@@ -19,6 +21,8 @@ const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
             style={{ width: "100%" }}
           />
         );
+      case "textArea":
+        return <TextArea rows={6} placeholder={field.placeholder || ""} />
       default:
         return (
           <Input
@@ -32,7 +36,7 @@ const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
-      onSubmit(values);
+      await onSubmit(values);
       form.resetFields(); // Limpia el formulario después de enviar
     } catch (error) {
       console.error("Error al enviar el formulario:", error);

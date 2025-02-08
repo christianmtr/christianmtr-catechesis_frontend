@@ -33,6 +33,11 @@ const getColums = listType => {
             key: "birthday",
           },
           {
+            title: "Enfermedades/Alergias",
+            dataIndex: "illness",
+            key: "illness",
+          },
+          {
             title: "Bautizo",
             dataIndex: "baptism",
             key: "baptism",
