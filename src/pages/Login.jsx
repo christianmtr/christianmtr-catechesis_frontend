@@ -50,13 +50,13 @@ const Login = () => {
       <h2 style={{ textAlign: "center" }}>Iniciar Sesión</h2>
       <Form onFinish={handleLogin} layout="vertical" initialValues={{ remember: true }}>
         <Form.Item
-          label="Email"
-          name="email"
-          rules={[{ required: true, message: "Por favor ingrese su email" }]}
+          label="Usuario"
+          name="username"
+          rules={[{ required: true, message: "Por favor ingrese su usuario" }]}
         >
           <Input prefix={<UserOutlined />}
-              placeholder="Ingresa tu email"
-              autoComplete="email"/>
+              placeholder="Ingresa tu usuario"
+              autoComplete="username"/>
         </Form.Item>
         <Form.Item
           label="Contraseña"
