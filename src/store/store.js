@@ -1,32 +1,36 @@
 import { create } from "zustand";
-import zukeeper from "zukeeper";
+import { persist } from "zustand/middleware";
 
 const useStore = create(
-  zukeeper((set) => ({
-    user: null,
-    token: null,
-    refresh: null,
-    inscriptions: {},
-    setUser: (user) => set({ user }),
-    setToken: (token) => {
-      set({ token });
-      localStorage.setItem("token", token); // Guardar el token en el localStorage
-    },
-    setRefresh: (refresh) => {
-      set({ refresh });
-      localStorage.setItem("refresh", refresh); // Guardar el token en el localStorage
-    },
-    logout: () => {
-      set({ user: null, token: null, refresh: null });
-      localStorage.removeItem("token");
-      localStorage.removeItem("refresh");
-    },
-    setInscriptions: (inscriptions) => {
-      set({ inscriptions });
-    },
-  }))
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      refresh: null,
+      inscriptions: {},
+      setUser: (user) => set({ user }),
+      setToken: (token) => {
+        set({ token });
+        localStorage.setItem("token", token); // Guardar el token en el localStorage
+      },
+      setRefresh: (refresh) => {
+        set({ refresh });
+        localStorage.setItem("refresh", refresh); // Guardar el token en el localStorage
+      },
+      logout: () => {
+        set({ user: null, token: null, refresh: null });
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh");
+      },
+      setInscriptions: (inscriptions) => {
+        set({ inscriptions });
+      },
+    }),
+    {
+      name: "auth-storage", // Nombre clave en LocalStorage
+      getStorage: () => localStorage, // Usar localStorage (o sessionStorage si prefieres)
+    }
+  )
 );
-
-window.store = useStore;
 
 export default useStore;
