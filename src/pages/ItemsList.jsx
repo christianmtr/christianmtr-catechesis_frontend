@@ -1,5 +1,5 @@
-// src/pages/ItemList.jsx
 import React, { useState, useEffect } from "react";
+import { Spin } from "antd";
 import DynamicTable from "../components/DynamicTable";
 import DynamicFormModal from "../components/DynamicFormModal";
 import apiService from "../api/apiService";
@@ -12,6 +12,7 @@ import getDataForCurrentPath from "../utils/getDataForCurrentPath";
 const ItemList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState([]); // Comienza con un array vacío
+  const [loading, setLoading] = useState(true);
   const { inscriptions } = useStore();
   const location = useLocation();
   const currentPathname = location.pathname;
@@ -23,6 +24,10 @@ const ItemList = () => {
         setData(dataList); // Establecer los datos iniciales
       } catch (error) {
         console.error("Error al cargar la lista de elementos:", error);
+      } finally {
+        if (inscriptions) {
+          setLoading(false); // Oculta el loader cuando termina la carga
+        }
       }
     };
 
@@ -55,18 +60,26 @@ const ItemList = () => {
     <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "20px" }}>
       <h1>Lista de Elementos</h1>
       <p>Aquí puedes ver y agregar nuevos elementos.</p>
-      <DynamicTable
-        data={data}
-        columns={columns}
-        scroll={{ x: 600 }}
-        onAddClick={() => setIsModalOpen(true)}
-      />
-      <DynamicFormModal
-        isVisible={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleFormSubmit}
-        fields={formFields}
-      />
+      {loading ? (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "200px" }}>
+          <Spin size="large" />
+        </div>
+      ) : (
+        <>
+          <DynamicTable
+            data={data}
+            columns={columns}
+            scroll={{ x: 600 }}
+            onAddClick={() => setIsModalOpen(true)}
+          />
+          <DynamicFormModal
+            isVisible={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onSubmit={handleFormSubmit}
+            fields={formFields}
+          />
+        </>
+      )}
     </div>
   );
 };
