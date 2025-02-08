@@ -44,13 +44,10 @@ const AppLayout = () => {
   }
 
   const userMenu = (
-    <Menu
-      items={[
-        { label: "Ver Perfil", key: "profile" },
-        { label: "Cerrar Sesión", key: "logout" },
-      ]}
-      onClick={handleMenuClick}
-    />
+    <Menu onClick={handleMenuClick}>
+    <Menu.Item key="profile">Ver Perfil</Menu.Item>
+    <Menu.Item key="logout">Cerrar Sesión</Menu.Item>
+  </Menu>
   );
 
   return (
@@ -91,14 +88,15 @@ const AppLayout = () => {
         </div>
 
         {/* Sección derecha: usuario */}
-        <Dropdown menu={userMenu} trigger={["click"]}>
-          <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
-            <Avatar src="/default-avatar.png" size="large" />
-            <span style={{ marginLeft: "10px", fontWeight: "500" }}>
-              {user?.first_name || "Usuario"}
-            </span>
-          </div>
-        </Dropdown>
+        <Dropdown overlay={userMenu} trigger={["click"]}>
+  <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+    <Avatar src="/default-avatar.png" size="large" />
+    <span style={{ marginLeft: "10px", fontWeight: "500" }}>
+      {user?.first_name || "Usuario"}
+    </span>
+  </div>
+</Dropdown>
+
       </Header>
 
       {/* Contenido principal */}
