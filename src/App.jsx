@@ -5,6 +5,7 @@ import AppLayout from "./components/Layout"; // El layout principal
 import Home from "./pages/Home"; // Página Home
 import ItemsList from "./pages/ItemsList"; // Página Lista de Elementos
 import Login from "./pages/Login"; // Página Login
+import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
@@ -18,9 +19,10 @@ const App = () => {
         <Route element={<AppLayout />}>
           <Route index element={<Home />} />
           <Route path="inscripciones" element={<ItemsList />} />
-          <Route path="grupos" element={<ItemsList />} />
+          {/* <Route path="grupos" element={<ItemsList />} /> */}
         </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
