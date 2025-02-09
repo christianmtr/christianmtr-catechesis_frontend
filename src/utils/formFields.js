@@ -127,7 +127,7 @@ const getFormFields = (listType, options) => {
           placeholder: "Ingrese datos del apoderado.",
           inputType: "textArea",
           initialValue:
-            "Nombres: \nApellidos: \nDNI: \nCelular: \nSacramentos: \nCondición (Matrimonio religioso, civil, soltero, viudez): ",
+            "Nombres: \nApellidos: \nDNI: \nCelular: \nSacramentos: \nCondición (Matrimonio religioso, civil, soltero, viudez): \nNúmero de operación: ",
         },
         {
           name: "user_type",

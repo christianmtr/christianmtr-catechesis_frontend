@@ -58,7 +58,7 @@ const ItemList = () => {
 
   return (
     <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "20px" }}>
-      <h1>Lista de Elementos</h1>
+      <h1>Lista de inscritos</h1>
       <p>Aquí puedes ver y agregar nuevos elementos.</p>
       {loading ? (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "200px" }}>

@@ -22,7 +22,7 @@ const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
           />
         );
       case "textArea":
-        return <TextArea rows={6} placeholder={field.placeholder || ""} />
+        return <TextArea rows={7} placeholder={field.placeholder || ""} />
       default:
         return (
           <Input

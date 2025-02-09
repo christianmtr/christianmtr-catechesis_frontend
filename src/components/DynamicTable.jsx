@@ -17,7 +17,7 @@ const DynamicTable = ({ data, columns, scroll, onAddClick }) => {
         }}
       />
       <Button type="primary" onClick={onAddClick} style={{ marginTop: "16px" }}>
-        Agregar Elemento
+        Agregar nuevo
       </Button>
     </div>
   );
