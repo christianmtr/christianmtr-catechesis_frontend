@@ -99,7 +99,6 @@ const AppLayout = () => {
 
       </Header>
 
-      {/* Contenido principal */}
       <Content
         style={{
           marginTop: "64px", // Deja espacio para el header fijo
@@ -107,6 +106,8 @@ const AppLayout = () => {
           display: "flex",
           justifyContent: "center", // Centra el contenido horizontalmente
           alignItems: "center", // Centra el contenido verticalmente
+          minHeight: "calc(100vh - 64px)", // Ocupa toda la pantalla menos el header
+          width: "100%", // Ocupa todo el ancho
         }}
       >
         <div
@@ -115,8 +116,9 @@ const AppLayout = () => {
             padding: "24px",
             borderRadius: "8px",
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-            width: "100%",
-            maxWidth: "1000px", // Limita el ancho de la caja centrada
+            width: "100%", // Ocupa todo el ancho disponible
+            maxWidth: "1400px", // Se limita en pantallas grandes
+            minHeight: "80vh", // Hace que el contenido sea más grande
           }}
         >
           <Outlet />

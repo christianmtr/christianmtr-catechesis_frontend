@@ -57,21 +57,25 @@ const ItemList = () => {
 };
 
   return (
-    <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "20px" }}>
+    <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
       <h1>Lista de inscritos</h1>
       <p>Aquí puedes ver y agregar nuevos elementos.</p>
+      
       {loading ? (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "200px" }}>
           <Spin size="large" />
         </div>
       ) : (
         <>
-          <DynamicTable
-            data={data}
-            columns={columns}
-            scroll={{ x: 600 }}
-            onAddClick={() => setIsModalOpen(true)}
-          />
+          <div style={{ width: "100%", overflowX: "auto" }}>
+            <DynamicTable
+              data={data}
+              columns={columns}
+              scroll={{ x: 800, y: 400 }} // Permite desplazamiento horizontal y mantiene el header fijo
+              onAddClick={() => setIsModalOpen(true)}
+            />
+          </div>
+
           <DynamicFormModal
             isVisible={isModalOpen}
             onClose={() => setIsModalOpen(false)}
@@ -81,6 +85,7 @@ const ItemList = () => {
         </>
       )}
     </div>
+
   );
 };
 
