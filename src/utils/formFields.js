@@ -116,15 +116,15 @@ const getFormFields = (listType, options) => {
           initialValue: "",
         },
         {
-          name: "parent_tmp",
-          label: "Datos del apoderado",
+          name: "additional_notes",
+          label: "Datos adicionales",
           rules: [
             {
               required: true,
-              message: "Los datos del apoderado son obligatorios.",
+              message: "Ingrese datos adicionales, como los del apoderado.",
             },
           ],
-          placeholder: "Ingrese datos del apoderado.",
+          placeholder: "Datos adicionales.",
           inputType: "textArea",
           initialValue:
             "Nombres: \nApellidos: \nDNI: \nCelular: \nSacramentos: \nCondición (Matrimonio religioso, civil, soltero, viudez): \nNúmero de operación: ",
