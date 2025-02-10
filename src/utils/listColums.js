@@ -47,6 +47,11 @@ const getColums = listType => {
             dataIndex: "communion",
             key: "communion",
           },
+          {
+            title: "Notas adicionales",
+            dataIndex: "additional_notes",
+            key: "additional_notes",
+          },
         ];
       case "/grupos":
         return [];
