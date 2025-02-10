@@ -76,7 +76,7 @@ const AppLayout = () => {
             }}
             onClick={() => navigate("/")}
           >
-            Mi Logo
+            Catequesis
           </div>
           <Menu
             mode="horizontal"

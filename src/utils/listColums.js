@@ -51,6 +51,9 @@ const getColums = listType => {
             title: "Notas adicionales",
             dataIndex: "additional_notes",
             key: "additional_notes",
+            ellipsis: {
+              showTitle: false,
+            },
           },
         ];
       case "/grupos":
