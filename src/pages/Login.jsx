@@ -26,7 +26,7 @@ const Login = () => {
       const data = await apiService.login(values);
 
       if (!data.user.is_active) {
-        message("This user is not active.", 0);
+        message("This user is not active.", 5);
         return null;
       }
 
@@ -36,10 +36,10 @@ const Login = () => {
       setUser(data.user);
 
       // Redirigir al home
-      message.success("Inicio de sesión exitoso", 30);
+      message.success("Inicio de sesión exitoso", 3);
       navigate("/");
     } catch (err) {
-      message.error("Error al iniciar sesión", err, 30);
+      message.error("Error al iniciar sesión", err, 5);
     } finally {
       setLoading(false);
     }
