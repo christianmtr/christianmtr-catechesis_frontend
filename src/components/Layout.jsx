@@ -45,9 +45,9 @@ const AppLayout = () => {
 
   const userMenu = (
     <Menu onClick={handleMenuClick}>
-    <Menu.Item key="profile">Ver Perfil</Menu.Item>
-    <Menu.Item key="logout">Cerrar Sesión</Menu.Item>
-  </Menu>
+      <Menu.Item key="perfil">Ver Perfil</Menu.Item>
+      <Menu.Item key="logout">Cerrar Sesión</Menu.Item>
+    </Menu>
   );
 
   return (

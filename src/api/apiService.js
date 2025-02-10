@@ -11,6 +11,11 @@ const apiService = {
     return response.data;
   },
 
+  updateUser : async (user_id, data) => {
+    const response = await apiClient.patch(`/core/users/${user_id}/`, data);
+    return response.data;
+  },
+
   getChildList: async () => {
     const response = await apiClient.get("/core/users/get_child_list/");
     return response.data;
