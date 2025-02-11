@@ -48,6 +48,11 @@ const getColums = listType => {
             key: "communion",
           },
           {
+            title: "Talla",
+            dataIndex: "t_shirt_size",
+            key: "t_shirt_size",
+          },
+          {
             title: "Notas adicionales",
             dataIndex: "additional_notes",
             key: "additional_notes",

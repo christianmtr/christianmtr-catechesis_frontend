@@ -115,6 +115,20 @@ const getFormFields = (listType, options) => {
           initialValue: "",
         },
         {
+          name: "t_shirt_size",
+          label: "Talla",
+          rules: [
+            {
+              required: false,
+              min: 1,
+              max: 3,
+            },
+          ],
+          placeholder: "XS, S, M, L, XL, XXL",
+          inputType: "text",
+          initialValue: "",
+        },
+        {
           name: "additional_notes",
           label: "Datos adicionales",
           rules: [
