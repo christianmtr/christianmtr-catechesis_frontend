@@ -1,7 +1,7 @@
 // src/pages/Login.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, Divider, Space } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import useStore from "../store/store";
 import apiService from "../api/apiService";
@@ -74,6 +74,8 @@ const Login = () => {
           </Button>
         </Form.Item>
       </Form>
+      <Divider plain>Zona de Administradores</Divider>
+      <Space align="center">Acceder al <a href="https://catechesis-backend.backend.catequesis.online/admin/" target="_blank">sitio de administración.</a></Space>
     </div>
   );
 };
