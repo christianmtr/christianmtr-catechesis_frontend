@@ -32,8 +32,7 @@ const getFormFields = (listType, options) => {
           label: "DNI",
           rules: [
             {
-              required: true,
-              message: "El número de DNI es obligatorio",
+              required: false,
               min: 8,
               max: 8,
             },
