@@ -11,7 +11,7 @@ const apiService = {
     return response.data;
   },
 
-  updateUser : async (user_id, data) => {
+  updateUser: async (user_id, data) => {
     const response = await apiClient.patch(`/core/users/${user_id}/`, data);
     return response.data;
   },
@@ -30,8 +30,20 @@ const apiService = {
     const response = await apiClient.get("/core/inscriptions/");
     return response.data;
   },
-
-  // Otros métodos...
+  checkAvailableUsername: async (username) => {
+    const response = await apiClient.get("/core/users/check_used_username/", {
+      params: { username: username },
+    });
+    return response.data;
+  },
+  updateUsername: async (user_id, data) => {
+    const response = await apiClient.patch(`/core/users/${user_id}/update_username/`, {data});
+    return response.data;
+  },
+  changePassword: async (user_id, data) => {
+    const response = await apiClient.post(`/core/users/${user_id}/set_password/`, data);
+    return response.data;
+  },
 };
 
 export default apiService;

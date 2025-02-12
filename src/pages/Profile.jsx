@@ -45,21 +45,34 @@ const Profile = () => {
 
   // Guardar nuevo nombre de usuario
   const handleUsernameSave = async (values) => {
-    const updatedUser = await apiService.updateUser(user.id, values);
-    setUser({ ...user, username: updatedUser.username });
-    setIsUsernameModalOpen(false);
-    message.success("Nombre de usuario actualizado");
+    const checkUsername = await apiService.checkAvailableUsername(values.username);
+    if (checkUsername.ok) {
+      const updatedUsername = await apiService.updateUser(user.id, values);
+      if (updatedUsername.ok) {
+        setUser({ ...user, username: values.username });
+        setIsUsernameModalOpen(false);
+        message.success("Nombre de usuario actualizado");
+      } else {
+        message.error("El username no pudo ser actualizado, inténtalo nuevamente.", 15);
+      }
+    } else {
+      message.error("El username elegido ya existe, inténtalo nuevamente con otro.", 15);
+    }
   };
 
   // Cambiar contraseña
   const handlePasswordSave = async (values) => {
-    if (values.newPassword !== values.confirmPassword) {
-      message.error("Las contraseñas no coinciden");
+    if (values.password1 !== values.password2) {
+      message.error("Las contraseñas no coinciden", 10);
       return;
     }
-    await apiService.changePassword(user.id, values);
-    message.success("Contraseña actualizada correctamente");
-    setIsPasswordModalOpen(false);
+    const changedPassword = await apiService.changePassword(user.id, values);
+    if (changedPassword.ok) {
+      message.success("Contraseña actualizada correctamente", 10);
+      setIsPasswordModalOpen(false);
+    } else {
+      message.error("La contraseña no pudo ser cambiada, vuelve a intentarlo.", 15);
+    }
   };
 
   return (
@@ -131,13 +144,13 @@ const Profile = () => {
         onOk={() => passwordForm.submit()}
       >
         <Form form={passwordForm} layout="vertical" onFinish={handlePasswordSave}>
-          <Form.Item name="currentPassword" label="Contraseña Actual" rules={[{ required: true, message: "Ingrese su contraseña actual" }]}>
+          <Form.Item name="current_password" label="Contraseña Actual" rules={[{ required: true, message: "Ingrese su contraseña actual" }]}>
             <Input.Password />
           </Form.Item>
-          <Form.Item name="newPassword" label="Nueva Contraseña" rules={[{ required: true, message: "Ingrese su nueva contraseña" }]}>
+          <Form.Item name="password1" label="Nueva Contraseña" rules={[{ required: true, message: "Ingrese su nueva contraseña" }]}>
             <Input.Password />
           </Form.Item>
-          <Form.Item name="confirmPassword" label="Confirmar Nueva Contraseña" rules={[{ required: true, message: "Confirme su nueva contraseña" }]}>
+          <Form.Item name="password2" label="Confirmar Nueva Contraseña" rules={[{ required: true, message: "Confirme su nueva contraseña" }]}>
             <Input.Password />
           </Form.Item>
         </Form>

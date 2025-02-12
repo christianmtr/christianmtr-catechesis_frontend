@@ -8,6 +8,7 @@ import getFormFields from "../utils/formFields";
 import getColums from "../utils/listColums";
 import { useLocation } from 'react-router-dom'
 import getDataForCurrentPath from "../utils/getDataForCurrentPath";
+import dayjs from "dayjs";
 
 const ItemList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,7 +44,7 @@ const ItemList = () => {
   // Manejo del envío del formulario
   const handleFormSubmit = async (values) => {
   try {
-    // Esperar a que se complete la llamada a la API
+    values.birthday = values.birthday ? dayjs(values.birthday).format("YYYY-MM-DD") : null;
     const newItem = await apiService.createChild(values);
     
     // Actualizar el estado solo cuando la llamada a la API sea exitosa

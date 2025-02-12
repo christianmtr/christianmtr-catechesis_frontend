@@ -37,7 +37,6 @@ const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
     try {
       const values = await form.validateFields();
       await onSubmit(values);
-      form.resetFields(); // Limpia el formulario después de enviar
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
     }
@@ -60,6 +59,7 @@ const DynamicFormModal = ({ isVisible, onClose, onSubmit, fields }) => {
           Guardar
         </Button>,
       ]}
+      afterClose={() => form.resetFields()}
     >
       <Form form={form} layout="vertical">
         {fields.map((field) => (
