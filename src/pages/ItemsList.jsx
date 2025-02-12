@@ -45,15 +45,19 @@ const ItemList = () => {
   const handleFormSubmit = async (values) => {
   try {
     values.birthday = values.birthday ? dayjs(values.birthday).format("YYYY-MM-DD") : null;
-    const newItem = await apiService.createChild(values);
+    await apiService.createChild(values);
     
-    // Actualizar el estado solo cuando la llamada a la API sea exitosa
-    setData((prevData) => (Array.isArray(prevData) ? [...prevData, newItem] : [newItem]));
+    // setData((prevData) => (Array.isArray(prevData) ? [...prevData, newItem] : [newItem]));
 
     // Cerrar el modal después de agregar el elemento
     setIsModalOpen(false);
   } catch (error) {
     console.error("Error al crear un elemento:", error);
+  } finally {
+    setLoading(true);
+    const dataList = await getDataForCurrentPath(currentPathname);
+    setData(dataList); // Establecer los datos iniciales
+    setLoading(false);
   }
 };
 

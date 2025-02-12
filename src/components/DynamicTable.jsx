@@ -16,45 +16,38 @@ const DynamicTable = ({ data, columns, scroll, onAddClick }) => {
         }}
         expandable={{
           expandedRowRender: (record) => (
-            <Flex gap="middle" vertical={false}>
+            <Flex vertical={true}>
+              <Flex gap="middle" vertical={false}>
+                <span
+                  style={{
+                    margin: 0,
+                    width: "50%",
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  <b>Notas adicionales:</b>
+                  <p>{record.additional_notes}</p>
+                </span>
+                <Divider type="vertical" style={{ borderColor: '#fff' }}/>
+                <span
+                  style={{
+                    margin: 0,
+                    width: "50%",
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  <b>Enfermedades/alergias:</b>
+                  <p>{record.illness}</p>
+                </span>
+              </Flex>
               <span
                 style={{
                   margin: 0,
-                  width: "50%",
-                  whiteSpace: "pre-line",
                 }}
               >
-                <b>Notas adicionales:</b>
-                <p>{record.additional_notes}</p>
-              </span>
-              <Divider type="vertical" style={{ borderColor: '#7cb305' }}/>
-              <span
-                style={{
-                  margin: 0,
-                  width: "50%",
-                  whiteSpace: "pre-line",
-                }}
-              >
-                <b>Enfermedades/alergias:</b>
-                <p>{record.illness}</p>
+                <b>Registrado por:</b> {record.registrar ? record.registrar : "---" }
               </span>
             </Flex>
-            // <>
-            //   <p
-            //     style={{
-            //       margin: 0,
-            //     }}
-            //   >
-            //     {record.additional_notes}
-            //   </p>
-            //   <p
-            //     style={{
-            //       margin: 0,
-            //     }}
-            //   >
-            //     {record.illness}
-            //   </p>
-            // </>
           ),
           rowExpandable: (record) => true,
         }}
