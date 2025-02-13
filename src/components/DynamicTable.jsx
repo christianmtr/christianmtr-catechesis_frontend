@@ -40,13 +40,44 @@ const DynamicTable = ({ data, columns, scroll, onAddClick }) => {
                   <p>{record.illness}</p>
                 </span>
               </Flex>
-              <span
-                style={{
-                  margin: 0,
-                }}
-              >
-                <b>Registrado por:</b> {record.registrar ? record.registrar : "---" }
-              </span>
+              <Flex gap="middle" vertical={false}>
+                <span
+                  style={{
+                    margin: 0,
+                    width: "50%",
+                  }}
+                >
+                  <b>Aula:</b> {record.room ? record.room : "---" }
+                </span>
+                <Divider type="vertical" style={{ borderColor: '#fff' }}/>
+                <span
+                  style={{
+                    margin: 0,
+                    width: "50%",
+                  }}
+                >
+                  <b>Nivel:</b> {record.inscription ? record.inscription : "---"}
+                </span>
+              </Flex>
+              <Flex gap="middle" vertical={false}>
+                <span
+                  style={{
+                    margin: 0,
+                    width: "50%",
+                  }}
+                >
+                  <b>Talla de polo:</b> {record.t_shirt_size ? record.t_shirt_size : "---" }
+                </span>
+                <Divider type="vertical" style={{ borderColor: '#fff' }}/>
+                <span
+                  style={{
+                    margin: 0,
+                    width: "50%",
+                  }}
+                >
+                  <b>Registrado por:</b> {record.registrar ? record.registrar : "---" }
+                </span>
+              </Flex>
             </Flex>
           ),
           rowExpandable: (record) => true,

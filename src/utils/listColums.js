@@ -45,12 +45,6 @@ const getColums = (listType) => {
           key: "communion",
           responsive: ["md"],
         },
-        {
-          title: "Talla",
-          dataIndex: "t_shirt_size",
-          key: "t_shirt_size",
-          responsive: ["md"],
-        },
       ];
     case "/grupos":
       return [];
