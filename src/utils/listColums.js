@@ -28,6 +28,11 @@ const getColums = (listType) => {
           key: "phone_number",
         },
         {
+          title: "Dirección",
+          dataIndex: "address",
+          key: "address",
+        },
+        {
           title: "Fecha de nacimiento",
           dataIndex: "birthday",
           key: "birthday",

@@ -70,6 +70,18 @@ const getFormFields = (listType, options) => {
           initialValue: "",
         },
         {
+          name: "address",
+          label: "Dirección",
+          rules: [
+            {
+              required: false,
+            },
+          ],
+          placeholder: "",
+          inputType: "text",
+          initialValue: "",
+        },
+        {
           name: "birthday",
           label: "Cumpleaños",
           rules: [
