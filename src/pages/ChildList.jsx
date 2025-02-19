@@ -41,45 +41,16 @@ const ItemList = () => {
       title: "Nombre",
       dataIndex: "first_name",
       key: "first_name",
-      showSorterTooltip: {
-        target: "full-header",
-      },
-      sorter: (a, b) => a.first_name.localeCompare(b.first_name),
-      sortDirections: ["descend"],
-      filterSearch: true,
-      onFilter: (value, record) => record.first_name.startsWith(value),
-      filters: [
-        {
-          text: "dfdf",
-          value: "sdf",
-        },
-      ],
     },
     {
       title: "Apellido",
       dataIndex: "last_name",
       key: "last_name",
-      showSorterTooltip: {
-        target: "full-header",
-      },
-      sorter: (a, b) => a.last_name.localeCompare(b.last_name),
-      sortDirections: ["descend"],
-      filterSearch: true,
-      onFilter: (value, record) => record.last_name.startsWith(value),
-      // width: "30%",
     },
     {
       title: "DNI",
       dataIndex: "national_id",
       key: "national_id",
-      showSorterTooltip: {
-        target: "full-header",
-      },
-      sorter: (a, b) => a.national_id - b.national_id,
-      sortDirections: ["descend"],
-      filterSearch: true,
-      onFilter: (value, record) => record.national_id.startsWith(value),
-      // width: "30%",
     },
     {
       title: "Email",
