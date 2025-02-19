@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import AppLayout from "./components/Layout"; // El layout principal
 import Home from "./pages/Home"; // Página Home
-import ItemsList from "./pages/ItemsList"; // Página Lista de Elementos
+import ChildList from "./pages/ChildList"; // Página Lista de Elementos
 import Login from "./pages/Login"; // Página Login
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -18,7 +18,7 @@ const App = () => {
       <Route path="/" element={<PrivateRoute />}>
         <Route element={<AppLayout />}>
           <Route index element={<Home />} />
-          <Route path="inscripciones" element={<ItemsList />} />
+          <Route path="inscripciones" element={<ChildList />} />
           {/* <Route path="grupos" element={<ItemsList />} /> */}
           <Route path="perfil" element={<Profile />} />
         </Route>
